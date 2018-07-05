@@ -44,7 +44,7 @@ export class Top extends Command {
     };
 
     async run(bot: any, msg: any, params: string[], perms: number) {
-        let amount: number = 10;
+        let amount: number = 15;
         if (params[0] && !isNaN(+params[0])) {
             amount = +params[0];
         }
