@@ -15,7 +15,6 @@ import { Seasons as SeasonEnum } from '../../enums/season.enum';
 import { SquadSize as SquadSizeEnum } from '../../enums/squadSize.enum';
 import { Server } from '../../models/server';
 
-
 export class Top extends Command {
 
     conf: CommandConfiguration = {
@@ -54,7 +53,14 @@ export class Top extends Command {
         let mode: string = cs.getParamValue('mode=', params, serverDefaults.default_mode);
         let squadSize: string = cs.getParamValue('squadSize=', params, serverDefaults.default_squadSize);
         let checkingParametersMsg: Discord.Message = (await msg.channel.send('Checking for valid parameters ...')) as Discord.Message;
-
+      
+        /*
+        print(Discord.Message.Author.Name);
+                print(Message.Author.Name);
+                print(Discord.Message.Author.Username);
+                print(Message.Author.Username);
+*/
+        
         if (!(await this.checkParameters(msg, season, region, mode, squadSize))) {
             checkingParametersMsg.delete();
             return;
@@ -100,27 +106,74 @@ export class Top extends Command {
                     playersInfo.push(characterInfo);
                 }
                 // Sorting Array based off of ranking (higher ranking is better)
+                //async def suer_info(ctx):
+                //await ctx.message.author.name
+                
                 playersInfo.sort(function (a: Player, b: Player) { return (+b.rating) - (+a.rating); });
                 let topPlayers: Player[] = playersInfo.slice(0, amount);
                 let embed: Discord.RichEmbed = new Discord.RichEmbed()
                     .setTitle('Top ' + amount + ' local players')
                     .setDescription('Season:\t' + SeasonEnum[season] + '\nRegion:\t' + region.toUpperCase() + '\nMode: \t' + mode.toUpperCase() + '\nSquad Size: \t' + SquadSizeEnum[squadSize])
                     .setColor(0x00AE86)
-                    .setFooter('Data retrieved from https://pubg.op.gg/')
+                    //.setFooter('Data retrieved from https://pubg.op.gg/')
                     .setTimestamp();
                 let names: string = '';
                 let ratings: string = '';
                 let kds: string = '';
+                //let koht: string = '';
+                let vaike: string = '';
                 // Construct top strings
                 for (var i = 0; i < topPlayers.length; i++) {
                     let character: Player = topPlayers[i];
                     let ratingStr: string = character.rating ? `${character.rank} / ${character.rating}` : 'Not available';
                     let kdsStr: string = `${character.kd} / ${character.kda} / ${character.average_damage_dealt}`;
-                    names += character.username + '\n';
-                    ratings += ratingStr + '\n';
-                    kds += kdsStr + '\n';
+                    let place = i+1;
+                    
+                    //if (place < 9) { vaike = ' '; } else { vaike = ''; }
+
+                   	if (character.username == 'kylapoiss') {
+                        names += '** ' + vaike + ' ' + place + '. KylaPoiss\n**';
+                        ratings += '**'+ratingStr + '\n**';
+                        kds += '**'+kdsStr + '\n**';
+                    } else if (character.username == 'kreller') {
+                        names += ' ' + vaike + ' ' + place + '. KreLLeR\n';
+                        ratings += ratingStr + '\n';
+                        kds += kdsStr + '\n';    
+                    } else if (character.username == 'thegodofgods') {
+                        names += ' ' + vaike + ' ' + place + '. TheGodofGods\n';
+                        ratings += ratingStr + '\n';
+                        kds += kdsStr + '\n';    
+                    } else if (character.username == 'bambambiim') {
+                        names += ' ' + vaike + ' ' + place + '. BamBamBiim\n';
+                        ratings += ratingStr + '\n';
+                        kds += kdsStr + '\n';   
+                    } else if (character.username == 'tapanmaha') {
+                        names += ' ' + vaike + ' ' + place + '. TapanMaha\n';
+                        ratings += ratingStr + '\n';
+                        kds += kdsStr + '\n';  
+                    } else if (character.username == 'saucecastillo') {
+                        names += ' ' + vaike + ' ' + place + '. SauceCastillo\n';
+                        ratings += ratingStr + '\n';
+                        kds += kdsStr + '\n';   
+                    } else if (character.username == 'macprap') {
+                        names += '  ' + vaike + ' ' + place + '. MacPrap\n';
+                        ratings += ratingStr + '\n';
+                        kds += kdsStr + '\n';   
+                    } else if (character.username == 'ennji') {
+                        names += ' ' + vaike + ' ' + place + '. Ennji\n';
+                        ratings += ratingStr + '\n';
+                        kds += kdsStr + '\n';      
+                    } else {
+                        names += ' ' + vaike + ' ' + place + '. ' + character.username + '\n';
+                        ratings += ratingStr + '\n';
+                        kds += kdsStr + '\n';
+                    }
+                   
                 }
+                 
+                 //embed.addField('No', koht, false)
                 embed.addField('Name', names, true)
+                    //.addField('Poster', Discord.Message.Author, true)
                     .addField('Rank / Rating', ratings, true)
                     .addField('KD / KDA / Avg Dmg', kds, true);
                 await msg.edit({ embed });
