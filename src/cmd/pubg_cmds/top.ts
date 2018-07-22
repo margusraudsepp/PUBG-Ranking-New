@@ -83,7 +83,7 @@ export class Top extends Command {
                         msg.edit(`Grabbing data for players ${i + 1} - ${max}`);
                     }
                     let id: string = await pubgService.getCharacterID(player.username, region);
-                    let characterInfo: Player = await pubgService.getPUBGCharacterData(id, player.username, season, region, +squadSize, mode);
+                    let characterInfo: Player = await pubgService.getPUBGCharacterData(id, player.username, season, kills, roundsPlayed, region, +squadSize, mode);
                     // Check if character info exists for this (it wont if a user hasn't played yet)
                     if (!characterInfo) {
                         characterInfo = {
@@ -98,8 +98,8 @@ export class Top extends Command {
                             topPercent: '',
                             winPercent: '',
                             topTenPercent: '',
-                            kills: '',
-                            roundsPlayed: '',
+                            killed: kills,
+                            rounds: roundsPlayed,
                             kda: '0.00',
                             kd: '0.00',
                             average_damage_dealt: '0.00',
@@ -130,7 +130,7 @@ export class Top extends Command {
                     let ratingStr: string = character.rating ? `${character.rank} / ${character.rating}` : 'Not available';
                     let kdsStr: string = `${character.kd} / ${character.kda} / ${character.average_damage_dealt}`;
                     let place = i+1;
-                    let killer: string = character.roundsPlayed ? `${character.roundsPlayed} / ${character.kills}` : 'Not available';
+                    let killer: string = character.rounds ? `${character.rounds} / ${character.killed}` : 'Not available';
                     
                     //if (place < 9) { vaike = ' '; } else { vaike = ''; }
 
