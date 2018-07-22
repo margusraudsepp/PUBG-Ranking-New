@@ -98,6 +98,8 @@ export class Top extends Command {
                             topPercent: '',
                             winPercent: '',
                             topTenPercent: '',
+                            kills: '',
+                            roundsPlayed: '',
                             kda: '0.00',
                             kd: '0.00',
                             average_damage_dealt: '0.00',
@@ -128,6 +130,7 @@ export class Top extends Command {
                     let ratingStr: string = character.rating ? `${character.rank} / ${character.rating}` : 'Not available';
                     let kdsStr: string = `${character.kd} / ${character.kda} / ${character.average_damage_dealt}`;
                     let place = i+1;
+                    let killer: string = character.roundsPlayed ? `${character.roundsPlayed} / ${character.kills}` : 'Not available';
                     
                     //if (place < 9) { vaike = ' '; } else { vaike = ''; }
 
@@ -175,7 +178,8 @@ export class Top extends Command {
                 embed.addField('Name', names, true)
                     //.addField('Poster', Discord.Message.Author, true)
                     .addField('Rank / Rating', ratings, true)
-                    .addField('KD / KDA / Avg Dmg', kds, true);
+                    .addField('KD / KDA / Avg Dmg', kds, true)
+                    .addField('Games / Kills', killer, true);
                 await msg.edit({ embed });
             });
     };
