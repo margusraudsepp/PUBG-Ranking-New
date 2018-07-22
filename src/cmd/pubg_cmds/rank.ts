@@ -111,6 +111,8 @@ export class Rank extends Command {
             .addField('Headshot Kill %', playerData.headshot_kills, true)
             .addField('Longest Kill', playerData.longest_kill, true)
             .addField('Average Damage', playerData.average_damage_dealt, true);
+            .addField('Kills', playerData.kills, true);
+            .addField('Games', playerData.roundsPlayed, true);
     }
 
     async checkParameters(msg: Discord.Message, checkSeason: string, checkRegion: string, checkMode: string): Promise<boolean> {
