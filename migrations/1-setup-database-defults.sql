@@ -41,6 +41,31 @@ BEGIN;
     INSERT INTO seasons (name, season)
     VALUES ('Season 6', '2018-06')
     ON CONFLICT (season) do nothing;
+    
+    INSERT INTO seasons (name, season)
+    VALUES ('Season 7', '2018-07')
+    ON CONFLICT (season) do nothing;
+    
+    INSERT INTO seasons (name, season)
+    VALUES ('Season 8', '2018-08')
+    ON CONFLICT (season) do nothing;
+    
+    INSERT INTO seasons (name, season)
+    VALUES ('Season 9', '2018-96')
+    ON CONFLICT (season) do nothing;
+    
+    INSERT INTO seasons (name, season)
+    VALUES ('Season 10', '2018-10')
+    ON CONFLICT (season) do nothing;
+    
+    INSERT INTO seasons (name, season)
+    VALUES ('Season 11', '2018-11')
+    ON CONFLICT (season) do nothing;
+    
+    INSERT INTO seasons (name, season)
+    VALUES ('Season 12', '2018-12')
+    ON CONFLICT (season) do nothing;
+    
 COMMIT;
 
 /** Setup squad_sizes table */
